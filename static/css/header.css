@@ -1,0 +1,23 @@
+.head{
+    position: sticky;
+    bottom: 0px;
+    display: flex;
+    justify-content: center;
+}
+.head-item{
+    background-color: #fff;
+    color: white;
+    padding: 11px 8px;
+    position: sticky;
+    width: 30%;
+    border-radius: 37px;
+    box-shadow: 0px 0px 7px 1px #0000004f;
+    left: 50%;
+    transform: translate(-50%,-15%);
+    display: flex;
+    justify-content: space-around;
+}
+.head .head-item a{
+    display: flex;
+    align-items: center;
+}

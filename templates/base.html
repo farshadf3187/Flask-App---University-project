@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>{% block title %}{% endblock %} | شبکه اجتماعی</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/notif.css') }}" />
+    {% block link %} {% endblock %}
+  </head>
+  <body style="background: linear-gradient(320deg,#f27121,#e94057,#8a2387);"> 
+    <main role="main" style="flex: 1;">
+      {% block body %} {% endblock %} 
+    </main>
+    {% include'notif.html'%}
+    {% if "/login" not in request.url and "/welcome" not in request.url and "/signup" not in request.url %}
+    <header class="head">
+      <nav role="navigation" class="head-item">
+        <a href="/"><img src="{{ url_for('static', filename='img/home.png') }}" width="35px" height="35px"/></a>
+        <a href="/createpost"><img src="{{ url_for('static', filename='img/add.png') }}" width="35px" height="35px"/></a>
+        <a href="/user/{{session['userName'].lower()}}"><img src="{{ url_for('static', filename='img/profile.png') }}" width="35px" height="35px"/></a>
+      </nav>
+    </header>
+    {% endif %} 
+    <script src="/static/js/scroll.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  </body>
+</html>

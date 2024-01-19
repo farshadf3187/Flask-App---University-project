@@ -1,0 +1,48 @@
+#flash {
+  text-align: center;
+  border-radius: 1rem;
+  padding: 0.2rem;
+  user-select: none;
+}
+
+.error {
+  background-color: #393939;
+  color: #fff;
+  padding: 10px;
+}
+
+.success {
+  background-color: #393939;
+  color: #fff;
+  padding: 10px;
+}
+
+.notifContainer {
+  width: 10rem;
+  text-align: center;
+  position: sticky;
+  bottom: 0;
+  -moz-animation: cssAnimation 0s ease-in 2.5s forwards;
+  -webkit-animation: cssAnimation 0s ease-in 2.5s forwards;
+  -o-animation: cssAnimation 0s ease-in 2.5s forwards;
+  animation: cssAnimation 0s ease-in 2.5s forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  margin-right: 20px;
+}
+
+@keyframes cssAnimation {
+  to {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+}
+
+@-webkit-keyframes cssAnimation {
+  to {
+    width: 0;
+    height: 0;
+    visibility: hidden;
+  }
+}

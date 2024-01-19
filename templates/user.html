@@ -1,0 +1,47 @@
+{% extends 'base.html'%}
+{% block title %}پروفایل کاربری{% endblock %}
+{% block link %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" />
+    <!-- RDF data using JSON-LD -->
+    <script type="application/ld+json">
+      {{ rdf_data|tojson|safe }}
+  </script>
+{% endblock %}
+{% block body %}
+  <div class="container">
+    <div class="userContainer">
+      <div class="slide-bottom" style="background: #333;box-shadow: -1px 4px 7px #00000061;"> 
+        {% if session["userName"] == user.userName%}
+<a href="/logout" style="float: left;margin-left: 20px;margin-top: 20px;background: red;color: #fff;padding: 10px 15px;border-radius: 10px;border: 2px solid #fff;font-size: 0.7rem;">خروج</a>
+{% endif %}      
+<div class="profile" style="display: flex;padding: 35px;justify-content: center;">
+        <img src="/static/img/user.png" alt="{{ user.userName }}" class="userProfilePicture" style="width: 200px;height: 200px;border: 4px solid #fff;border-radius: 50%;">
+      <div style="display: flex;align-items: flex-start;flex-direction: column;margin-right: 35px;">
+          <h2 class="userName" style="color: #fff;">{{ user.userName }}</h2>
+          <p class="userRole" style="margin: 0;color: #fff;">نقش : {% if user.role == "user" %} کاربر {% else %} ادمین {% endif %} </p>
+          <p class="userViews" style="margin: 0;color: #fff;">تعداد کل بازدیدها : {{ views }}</p>
+      </div>
+        </div>
+        </div>
+
+      {% if posts %}
+        <h1 class="postsText scale-up-center" style="color: #fff;text-align: center;">نوشته ها</h1>
+        <div class="slide-top" style="display: flex;flex-wrap: wrap;text-align: center;justify-content: space-evenly;margin-bottom: 30px;">
+          {% if posts.count() > 0 %}
+        {% for post in posts %}
+          <div class="post"  style="text-align: center !important;">
+            <a class="title textPrimary" href="/post/{{post.id}}">{{ post.title }}</a>
+            <div class="content" tag="content">{{ post.content|safe }}</div>
+            <a href="/post/{{post.id}}" class="btn btnLink">مشاهده مطلب</a>
+          </div>
+        {% endfor %}
+        {% else %}
+        <div style="width: 100%;">
+          <p style="color: #a29f9f;">نوشته ای وجود ندارد</p>
+        </div>
+        {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock body %}

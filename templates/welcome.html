@@ -1,0 +1,19 @@
+{% extends 'base.html'%}
+{% block title %}خوش آمدید{% endblock %} 
+{% block link %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/welcome.css') }}" />
+<!-- RDF data using JSON-LD -->
+<script type="application/ld+json">
+    {{ rdf_data|tojson|safe }}
+</script>
+{% endblock %}
+{% block body %}
+<div class="container slide-top-wel">
+    <p>خوش آمدید <br> لطفا وارد حساب کاربری خود شوید</p>
+<hr>
+    <div class="reg">
+        <a href="/signup" class="signup">ثبت نام</a>
+        <a href="/login" class="login">ورود</a>
+    </div>
+</div>
+{% endblock %}

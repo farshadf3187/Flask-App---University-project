@@ -1,0 +1,58 @@
+{% extends 'base.html'%}
+{% block title %}نوشته ها{% endblock %} 
+{% block link %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" />
+<script src='/static/js//fontawsome.js' crossorigin='anonymous'></script>
+<!-- RDF data using JSON-LD -->
+<script type="application/ld+json">
+  {{ rdf_data|tojson|safe }}
+</script>
+{% endblock %}
+{% block body %}
+<div style="display: flex;justify-content: center;">
+{% if posts %}
+  <div class="slide-left" style="text-align: center;width: 45%;margin-left: 16px;">
+    {% for post in posts %}
+    <article role="article" aria-labelledby="post" class="postH" style="text-align: center !important;">
+        <div class="postAuthor">
+          <a href="/user/{{post.author.lower()}}"><img src="/static/img/user.png"></a>
+          <div class="postAuthorD">
+            <a href="/user/{{post.author.lower()}}">
+              <span>{{post.author}}</span>
+            </a>  
+            <span class="date">{{post.lastEditDate}}</span>
+          </div>
+      </div>
+        <a class="titleH textPrimary" href="post/{{post.id}}">{{post.title}}</a>
+        <div class="content" tag="content">{{post.content|safe}}</div>
+        <a href="post/{{post.id}}" class="btn btnLink" >مشاهده مطلب</a>
+      </article>
+    {% endfor %} 
+  </div>
+  <div class="scale-up-ver-top" style="height: fit-content;margin-bottom: 30px;width: 30%;padding: 1.3rem;margin: 10px;/* From https: //css.glass */background: rgba(255, 255, 255, 0.64);border-radius: 16px;box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);backdrop-filter: blur(4.1px);-webkit-backdrop-filter: blur(4.1px);border: 1px solid rgba(255, 255, 255, 0.89);">
+    <h3>نوشته های پربازدید</h3>  
+      <div>
+        {% for t in Tpost %}
+        <article role="article" aria-labelledby="post" class="topPost">
+            <a href="post/{{t.id}}">
+              <div style="display: flex;justify-content: space-between;align-items: center;">
+                  <h2 style="font-size: 23px;margin: 25px 0 10px 0;">{{t.title}}</h2>
+                  <span style="margin: 25px 0 10px 20px;font-size: 16px; display: flex;align-items: center;">
+                    <i class="fa-solid fa-eye" style="margin-left: 4px;"></i>
+                    {{t.views}}
+                    </span>
+              </div>
+              <p style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;max-width: 100%;margin: 0 11px 25px 0;font-size: 18px;">
+                {{t.content|safe}}
+              </p>           
+</a>
+</article>
+          {% endfor %}
+      </div>
+    </div>
+    {% else %}
+    <p style="color: #fff;">نوشته ای برای نمایش وجود ندارد</p>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'base.html'%}
+{% block title %}{{post.title}}{% endblock %}
+{% block link %}
+  <meta property="og:title" content="{{ post.title }}">
+    <meta property="og:description" content="{{ post.content }}">
+    <meta property="og:url" content="{{ request.url }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/post.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" />
+  <script src='/static/js//fontawsome.js' crossorigin='anonymous'></script>
+      <!-- RDF data using JSON-LD -->
+      <script type="application/ld+json">
+        {{ rdf_data|tojson|safe }}
+    </script>
+{% endblock %}
+{% block body %}
+<div style="display: flex;justify-content: center;margin-top: 15px;">
+  <div class="social-share slide-left" style="padding: 1.3rem;margin: 10px;display: flex;flex-direction: column;justify-content: space-between;margin-bottom: 30px;background: rgba(255, 255, 255, 0.64);border-radius: 16px;box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);backdrop-filter: blur(4.1px);-webkit-backdrop-filter: blur(4.1px);border: 1px solid rgba(255, 255, 255, 0.89);">
+      <a href="https://www.facebook.com/sharer.php?u={{request.url}}" style="margin-right: 0.3rem;" data-label="Facebook" onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px'); return false;" target="_blank" aria-label="اشتراک گذاری در فیسبوک" rel="noopener nofollow">
+         <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://twitter.com/share?url={{request.url}}" style="margin-right: 0.3rem;" onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px'); return false;" target="_blank" aria-label="اشتراک گذاری در توئیتر" rel="noopener nofollow">
+         <i class="fab fa-twitter"></i>
+      </a>
+      <a href="https://www.instagram.com/create/?url={{request.url}}&caption={{post.content}}" style="margin-right: 0.3rem;" class="social-icon" target="_blank" aria-label="اشتراک گذاری در اینستاگرام">
+        <i class="fab fa-instagram"></i>
+     </a>
+     <a href="https://telegram.me/share/url?url={{request.url}}" style="margin-right: 0.3rem;" onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px'); return false;" target="_blank" class="icon button circle is-outline tooltip telegram tooltipstered" aria-label="اشتراک گذاری در تلگرام" rel="noopener nofollow">
+      <i class="fab fa-telegram"></i>
+   </a>
+   <a href="mailto:?subject={{post.title}};body={{post.content}}" style="margin-right: 0.3rem;" aria-label="ایمیل به دوستان" rel="nofollow">
+    <i class="fa fa-envelope"></i></a>
+    </div>
+  <div class="postH slide-top" style="width: 50%;">
+    <div class="post-container">
+    <div style="text-align: center;" class="title">
+      <h1 style="text-align: center;margin: 0;">{{post.title}}</h1>
+      <a href="/user/{{post.author}}">
+        <h5 style="font-size: 0.6rem;margin: 0;" class="author">نویسنده: {{post.author}}</h5></a>
+    </div>
+      {{post.content|safe}} 
+      <h5 style="margin-top: 43px;text-align: right;font-size: 0.7rem;">بازدید: {{post.views}}</h5>
+      <hr/>
+      <div style="font-size: 0.8rem;display: flex;justify-content: space-between;align-items: center;">
+         <span>
+          برچسب ها : {{post.tags.replace(" ",", ").replace(",",", ")}}
+        </span>
+        <div style="display: flex;">
+          <h5 style="margin: 10px;">{{post.time}}</h5>
+          <h5 style="margin: 10px;" class="date">{{post.date}}</h5>
+        </div>
+      </div>
+      
+    </div>
+    
+    {% if post.author == session["userName"] %}
+      <div class="bottomBar" style="display: flex;justify-content: center;margin-top: 12px;">
+        <form method="post">
+          <button
+            type="submit"
+            style="color: #fff;background: #aa0a0a;cursor: pointer;padding: 10px;border-radius: 12px;font-size: 1rem;margin-left: 10px;"
+            name="postDeleteButton"
+          >
+            حذف
+          </button>
+        </form>
+
+        <a href="/editpost/{{post.id}}" style="color: #fff;background: #333;padding: 10px;border-radius: 12px;font-size: 1rem;">ویرایش</a>
+      </div>
+    {% endif %}
+  </div>
+  </div>
+</div>
+  
+{% endblock body %}

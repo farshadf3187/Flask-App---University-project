@@ -1,0 +1,22 @@
+{% extends 'base.html'%}
+{% block title %}ثبت نام کاربر{% endblock %} 
+{% block link %}
+  <link rel="stylesheet"href="{{ url_for('static', filename='css/submit.css') }}" />
+  <!-- RDF-like metadata using JSON-LD -->
+  <script type="application/ld+json">
+    {{ rdf_data|tojson|safe }}
+</script>
+{% endblock %} 
+{% block body %}
+  <div class="container slide-left-wel">
+    <h1>ثبت نام کاربر</h1>
+    <form role="form" aria-labelledby="form-heading" method="post">
+      <fieldset class="formLogin" style="border: none;">
+      <input autocomplete="off" id="userName" maxlength="25" minlength="4" name="userName" placeholder="نام کاربری" required="" type="text" value="">
+      <input autocomplete="off" id="email" maxlength="50" minlength="6" name="email" placeholder="ایمیل" required="" type="text" value="">
+      <input id="password" minlength="8" name="password" placeholder="رمز عبور" required="" type="password" value="">
+      </fieldset>
+      <button type="submit" class="submitBtn">ثبت نام کن</button>
+    </form>
+  </div>
+{% endblock body %}
